@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    {% for student in students %}
+        <li>
+            id：{{ student.id }}&emsp;姓名：{{ student.name }}&emsp;age：{{ student.age }}
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

@@ -1,3 +1,5 @@
+import cmath
+
 # hello
 print("hello 蕊英")
 
@@ -43,8 +45,6 @@ print(type(ac))
 ab = 4 + 0.1j
 print(ac + ab)
 
-import cmath
-
 ac = cmath.sqrt(-1)
 print(ac)
 
@@ -84,3 +84,24 @@ print(s8)
 # 当存在需要转义的\和不转义同时存在
 s9 = r'D:\demo\python is' '\"dir\"'
 print(s9)
+
+# bytes
+b1 = bytes()
+b2 = b''
+b3 = b'hello'
+print(type(b1))
+print(type(b2))
+print(b3[0])
+print(b3[2:4])
+print(b3)
+# bytes函数将字符转byte
+b4 = bytes("呵呵呵呵呵呵", encoding="utf-8")
+b5 = bytes("呵呵呵呵呵呵".encode("utf-8"))
+print(b4)
+print(b5)
+b6 = b5.decode("utf-8")
+print(b6)
+
+# bool
+bo1 = False
+bo2 = True

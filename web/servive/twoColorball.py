@@ -1,6 +1,8 @@
 import random
 import json
 
+from web.models import TwoColorBall
+
 
 def run_two_color():
     reds = []
@@ -36,3 +38,12 @@ def run_two_colors(times):
 
     # return json.dumps(out, ensure_ascii=False)
     return out
+
+
+def query_two_colors(start, end):
+    if end is not None:
+        balls = TwoColorBall.objects.filter(run_date__lte=end,run_date__rte=start)
+    else:
+        balls = TwoColorBall.objects.filter(run_date__exact=start)
+
+    return balls

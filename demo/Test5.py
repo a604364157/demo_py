@@ -95,3 +95,67 @@ print(a)
 a = "小明说：%(a)s，小红说%(b)s"
 b = {"a": "你好呀", "b": "我很好，你也好"}
 print(a % b)
+
+# set 集合 不重复，无序
+print("set集合")
+a = {1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4}
+print(a)
+set1 = set("1234567891234")
+print(set1)
+t = [1, 2, 3, 4, 5]
+set2 = set(t)
+print(set2)
+t = (1, 2, 3, 4, 5)
+set3 = set(t)
+print(set3)
+# 因为set无序，所以不能通过索引访问，可以循环
+for v in a:
+    print(v, end="")
+print()
+# set基本操作
+a = {1, 2, 3, 4, 5, 6, 7, 8, 9}
+# 添加元素
+a.add(10)
+a.add((11, 12))
+print(a)
+# 删除元素
+a.remove(10)
+a.remove((11, 12))
+print(a)
+# a.remove(10) 报错
+a.discard(10)  # 删除失败不报错
+print(a)
+# set集合的 交集，并集，差集，对称差集
+a = {1, 2, 3, 4, 5, 6, 7}
+b = {4, 5, 6, 7, 8, 9, 0}
+# 交集
+print(a & b)
+# 并集
+print(a | b)
+# 差集
+print(a - b)
+# 对称差集(相当于相互差集取并集)
+print(a ^ b)
+
+# set() 相关函数
+a = {1, 2, 3, 4, 5}
+a.add(6)  # 添加元素
+a.clear()  # 清空元素
+b = a.copy()  # 克隆a给b
+c = a.difference(b)  # 将a中有，而b中没有的元素给c
+a.difference_update(b)  # 从a中删除与b中相同的元素
+a.discard(1)  # 删除元素
+c = a.intersection(b)  # 取a和b的交集给c
+a.intersection_update(b)  # 取a和b的交集并重新赋值给a
+a.isdisjoint(b)  # 判断a和b是否有交集
+a.issubset(b)  # 判断a是否时b的子集
+a.issuperset(b)  # 判断b是否是a的子集
+t = a.pop()  # 取出一个元素，赋值给t，并从原集合删除
+a.remove(1)  # 删除a中的元素，元素不存在会报错
+c = a.symmetric_difference(b)  # 取出a和b中互不相同的元素给c
+a.symmetric_difference_update(b)  # 取出a和b中互不相同的元素,并更新a
+c = a.union(b)  # 取a和b的并集给c
+a.update(b)  # 将b（可以是列表或集合）到a中
+
+# frozenset 不可变的集合(操作和set一样，但是所有会改变原set的函数都不支持)
+f = frozenset("123456789")

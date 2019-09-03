@@ -7,7 +7,12 @@ from ctypes import c_buffer, windll
 from platform import system
 from sys import getfilesystemencoding
 
-import pygame # pip install pygame
+import pygame  # pip install pygame
+
+
+class PlayException(Exception):
+    pass
+
 
 # 获取系统标识
 system = system()
@@ -25,6 +30,8 @@ def win_command(*command):
     if error_code:
         error_buffer = c_buffer(255)
         windll.winmm.mciGetErrorStringA(error_code, error_buffer, 254)
+        error_msg = "cmd error: errorCode=" + str(error_code) + ", msg:" + error_buffer.value.decode(code)
+        raise PlayException(error_msg)
     return buf.value
 
 

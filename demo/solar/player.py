@@ -108,8 +108,12 @@ def play_music(name: str):
         _play_by_sys(name)
 
 
-musics = ["惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "处暑", "立秋", "霜降"]
+def main():
+    musics = ["惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "处暑", "立秋", "霜降"]
+    for i in musics:
+        print("正在播放《" + i + "》")
+        play_music("mp3\\" + i + ".mp3")
 
-for i in musics:
-    print("正在播放《" + i + "》")
-    play_music("mp3\\" + i + ".mp3")
+
+if __name__ == '__main__':
+    main()

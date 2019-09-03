@@ -1,6 +1,7 @@
-# 春分，雨水，惊蛰，春分，清明，谷雨，立夏，小满，芒种，夏至，小暑，大暑
+# 立春，雨水，惊蛰，春分，清明，谷雨，立夏，小满，芒种，夏至，小暑，大暑
 # 立秋，处暑，白露，秋分，寒露，霜降，立冬，小雪，大雪，冬至，小寒，大寒
 import os
+import threading
 import time
 import wave
 from ctypes import c_buffer, windll
@@ -35,6 +36,19 @@ def win_command(*command):
     return buf.value
 
 
+def show_time_t(all_time: float):
+    t = threading.Thread(target=show_time, args=(all_time,))
+    t.start()
+
+
+def show_time(all_time: float):
+    all_time = int(all_time)
+    while all_time > 0:
+        all_time -= 1
+        time.sleep(1)
+        print(all_time)
+
+
 def _play_mp3(name: str):
     # 这个init()需要给一个参数，不然容易语数失真
     # 可能是我测试的资源的原因，暂未发现失真
@@ -44,6 +58,8 @@ def _play_mp3(name: str):
     # 调用cmd获取资源的属性，这里获取时长
     duration_ms = win_command('status', name, 'length')
     play_time = float(duration_ms) / 1000.0
+    # 异步打印剩余时长
+    show_time_t(play_time)
     time.sleep(play_time)
     pygame.mixer.music.stop()
 
@@ -92,4 +108,8 @@ def play_music(name: str):
         _play_by_sys(name)
 
 
-play_music("mp3\\芒种.mp3")
+musics = ["惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "处暑", "立秋", "霜降"]
+
+for i in musics:
+    print("正在播放《" + i + "》")
+    play_music("mp3\\" + i + ".mp3")

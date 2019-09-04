@@ -2,6 +2,9 @@
 
 
 # if/else
+import random
+
+
 def test1():
     age = input("请输入你的年龄\n")
     age = int(age)
@@ -142,7 +145,60 @@ def test12():
     k = {'a': 1, 'b': 2, 'c': 3, 'd': 4, 'e': 5, 'f': 6, 'g': 7, 'h': 8, 'i': 9}
     a = {key: value for key, value in k.items()}
     print(a)
+    # 集合推导式
+    a = {x for x in k.keys()}
+    print(a)
 
+
+# zip函数
+def test13():
+    # zip()是把两(多)个列表压缩为一个zip对象
+    a = ["a", "b", "c"]
+    b = [1, 2, 3]
+    c = [x for x in zip(a, b)]
+    print(c)
+
+
+# reversed函数 反向遍历
+def test14():
+    a = [x for x in range(1, 10)]
+    print(a)
+    b = [x for x in reversed(a)]
+    print(b)
+
+
+# sorted函数 排序
+def test15():
+    a = [x for x in range(1, 10)]
+    print(a)
+    # 这里我们先乱序一下，用于测试
+    random.shuffle(a)
+    print(a)
+    # sorted不会改变原列表，而是返回一个排序好的新列表
+    b = sorted(a)
+    print(b)
+    # 反向排序
+    b = sorted(a, reverse=True)
+    print(b)
+    # 指定排序规则，这里我们使用字符长度
+    a = ["a", "ab", "abc", "abcd"]
+    random.shuffle(a)
+    print(a)
+    # 其实这里默认也是按字符长度
+    b = sorted(a, key=len)
+    print(b)
+
+
+# break continue
+def test16():
+    for i in range(1, 10):
+        if i == 1:
+            # 进行下一次循环
+            continue
+        if i == 3:
+            # 跳出循环
+            break
+        print(i)
 
 
 # test1()
@@ -156,4 +212,8 @@ def test12():
 # test9()
 # test10()
 # test11()
-test12()
+# test12()
+# test13()
+# test14()
+# test15()
+test16()

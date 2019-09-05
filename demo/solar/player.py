@@ -1,5 +1,6 @@
 # 立春，雨水，惊蛰，春分，清明，谷雨，立夏，小满，芒种，夏至，小暑，大暑
 # 立秋，处暑，白露，秋分，寒露，霜降，立冬，小雪，大雪，冬至，小寒，大寒
+import datetime
 import os
 import threading
 import time
@@ -43,10 +44,56 @@ def show_time_t(all_time: float):
 
 def show_time(all_time: float):
     all_time = int(all_time)
+    base = '2020-01-01 00:00:00'
+    base_time = datetime.datetime.strptime(base, '%Y-%m-%d %H:%M:%S')
     while all_time > 0:
-        all_time -= 1
+        base_time = base_time + datetime.timedelta(seconds=1)
+        base_time_str = base_time.strftime("%Y-%m-%d %H:%M:%S")
+        print(base_time_str[-5:])
         time.sleep(1)
-        print(all_time)
+        all_time -= 1
+
+
+def show_lrc_t(name: str):
+    t = threading.Thread(target=show_lrc, args=(name,))
+    t.start()
+
+
+def show_lrc(name: str):
+    name = name[:-3] + "lrc"
+    lrc_dict = {}
+    try:
+        file = open(name, "r", encoding="utf-8")
+    except FileNotFoundError:
+        print("未找到歌词文件：" + name)
+        return
+    music_lrc_list = file.readlines()
+    # 遍历每一行歌词
+    for music_lrc_line in music_lrc_list:
+        # 对每一行歌词进行切割
+        music_lrc_time = music_lrc_line.split(']')
+        music_lrc = music_lrc_time.pop()
+        # 处理每一行歌词的时间
+        for lrc_time in music_lrc_time:
+            # 取出每一行的时间
+            lrc_time_list = lrc_time[1:]
+            # 处理时间，转为float类型
+            time_list = lrc_time_list.split(':')
+            # 这里是因为歌词里存在一些[]内不是时间的内容，这里捕获掉
+            # 使用0.0作为key，0.0会被后面覆盖掉
+            try:
+                times = float(time_list[0]) * 60 + float(time_list[1])
+            except ValueError:
+                times = 0.0
+            lrc_dict[times] = music_lrc
+    time_sort = list(lrc_dict)
+    time_sort.sort()
+    time.sleep(time_sort[0])
+    time_sleep = time_sort[0]
+    for i in time_sort:
+        print(lrc_dict[i])
+        time.sleep(i - time_sleep)
+        time_sleep = i
 
 
 def _play_mp3(name: str):
@@ -60,6 +107,8 @@ def _play_mp3(name: str):
     play_time = float(duration_ms) / 1000.0
     # 异步打印剩余时长
     show_time_t(play_time)
+    # 异步打印歌词
+    show_lrc_t(name)
     time.sleep(play_time)
     pygame.mixer.music.stop()
 
@@ -109,7 +158,7 @@ def play_music(name: str):
 
 
 def main():
-    musics = ["惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "处暑", "立秋", "霜降"]
+    musics = ["芒种", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "处暑", "立秋", "霜降"]
     for i in musics:
         print("正在播放《" + i + "》")
         play_music("mp3\\" + i + ".mp3")

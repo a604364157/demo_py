@@ -5,25 +5,11 @@ from web.models import TwoColorBall
 
 
 def run_two_color():
-    reds = []
-    for i in range(33):
-        reds.append(i + 1)
-
-    blues = []
-    for i in range(12):
-        blues.append(i + 1)
-
-    out = []
-    j = 32
-    for i in range(6):
-        rand = random.randint(0, j)
-        out.append(reds.pop(rand))
-        j -= 1
-
+    reds = [i for i in range(1, 34)]
+    blues = [i for i in range(1, 17)]
+    out = random.sample(reds, k=6)
     out.sort()
-    rand = random.randint(0, 11)
-    out.append(blues.pop(rand))
-    return out
+    return out + random.sample(blues, k=1)
 
 
 def run_two_colors(times):
@@ -47,3 +33,24 @@ def query_two_colors(start, end):
         balls = TwoColorBall.objects.filter(run_date__exact=start)
 
     return balls
+
+
+def run_big_lotto():
+    reds = [i for i in range(1, 36)]
+    blues = [i for i in range(1, 13)]
+    out = random.sample(reds, k=5)
+    out.sort()
+    t = random.sample(blues, k=2)
+    t.sort()
+    return out + t
+
+
+def run_big_lottos(times):
+    if times is None:
+        times = 1
+    else:
+        times = int(times)
+    out = []
+    for i in range(times):
+        out.append(run_big_lotto())
+    return out

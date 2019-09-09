@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 
 from web.models import Student, TwoColorBall
-from web.servive.twoColorball import run_two_colors
+from web.servive.twoColorball import run_two_colors, run_big_lottos
 
 
 def say_hello(requset):
@@ -27,4 +27,10 @@ def show_real_students(request):
 def run_two_color_ball(request):
     times = request.GET.get("times")
     balls = run_two_colors(times)
+    return render_to_response('twoColorBall.html', {'balls': balls})
+
+
+def run_big_lotto(request):
+    times = request.GET.get("times")
+    balls = run_big_lottos(times)
     return render_to_response('twoColorBall.html', {'balls': balls})

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from web.views import say_hello, show_students, show_real_students, run_two_color_ball
+from web.views import say_hello, show_students, show_real_students, run_two_color_ball, run_big_lotto
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('showStudents/', show_students),
     path('showRealStudents/', show_real_students),
     path('runBall', run_two_color_ball),
+    path('runLotto', run_big_lotto),
 ]

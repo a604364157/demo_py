@@ -5,37 +5,14 @@ import os
 import random
 import threading
 import time
+from mutagen.mp3 import MP3
 import wave
-from ctypes import c_buffer, windll
-from platform import system
-from sys import getfilesystemencoding
 
 import pygame  # pip install pygame
 
 
 class PlayException(Exception):
     pass
-
-
-# 获取系统标识
-system = system()
-
-
-def win_command(*command):
-    buf = c_buffer(255)
-    # 获取系统编码
-    code = getfilesystemencoding()
-    # windows下，我们编写程序习惯utf-8，但是调用外部资源，文件名实际是gbk的，所以这种情况要手动转gbk
-    if system == "Windows":
-        code = "gbk"
-    command = ' '.join(command).encode(code)
-    error_code = int(windll.winmm.mciSendStringA(command, buf, 254, 0))
-    if error_code:
-        error_buffer = c_buffer(255)
-        windll.winmm.mciGetErrorStringA(error_code, error_buffer, 254)
-        error_msg = "cmd error: errorCode=" + str(error_code) + ", msg:" + error_buffer.value.decode(code)
-        raise PlayException(error_msg)
-    return buf.value
 
 
 def show_time_t(all_time: float):
@@ -103,9 +80,8 @@ def _play_mp3(name: str):
     pygame.mixer.init()
     pygame.mixer.music.load(name)
     pygame.mixer.music.play()
-    # 调用cmd获取资源的属性，这里获取时长
-    duration_ms = win_command('status', name, 'length')
-    play_time = float(duration_ms) / 1000.0
+    # 这里获取时长
+    play_time = MP3(name).info.length
     # 异步打印剩余时长
     show_time_t(play_time)
     # 异步打印歌词
@@ -164,7 +140,7 @@ def main():
     for i in dirs:
         if i.lower().endswith(".mp3"):
             print("正在播放《" + i + "》")
-            play_music("mp3\\" + i)
+            play_music("mp3/" + i)
 
 
 if __name__ == '__main__':

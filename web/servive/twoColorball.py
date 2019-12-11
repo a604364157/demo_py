@@ -17,11 +17,9 @@ def run_two_colors(times):
         times = 1
     else:
         times = int(times)
-
     out = []
     for i in range(times):
         out.append(run_two_color())
-
     # return json.dumps(out, ensure_ascii=False)
     return out
 
@@ -31,7 +29,6 @@ def query_two_colors(start, end):
         balls = TwoColorBall.objects.filter(run_date__lte=end, run_date__rte=start)
     else:
         balls = TwoColorBall.objects.filter(run_date__exact=start)
-
     return balls
 
 

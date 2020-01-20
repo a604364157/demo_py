@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, json
 
 from demo.flask.server.two_color import run_two_color
 
@@ -20,7 +20,7 @@ def run_ball():
     out = []
     for i in range(times):
         out.append(run_two_color())
-    return jsonify(out)
+    return json.dumps(out)
 
 
 if __name__ == '__main__':

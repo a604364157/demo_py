@@ -57,4 +57,4 @@ def pring(size: int):
 
 
 if __name__ == '__main__':
-    pring(5)
+    pring(9)

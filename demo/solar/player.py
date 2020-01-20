@@ -138,7 +138,8 @@ def main():
     dirs = os.listdir("mp3")
     random.shuffle(dirs)
     for i in dirs:
-        if i.lower().endswith(".mp3"):
+        # if i.lower().endswith(".mp3"):
+        if i.lower() == "一个人挺好.mp3":
             print("正在播放《" + i + "》")
             play_music("mp3/" + i)
 

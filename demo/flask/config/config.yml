@@ -1,0 +1,15 @@
+data-sources:
+  scf:
+    host: 192.168.138.233
+    port: 33306
+    username: root
+    password: 123456
+    db-name: scf_w
+    charset: utf8
+  company:
+    host: 192.168.138.233
+    port: 33306
+    username: root
+    password: 123456
+    db-name: company
+    charset: utf8

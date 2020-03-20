@@ -30,23 +30,6 @@ def get_config(file: str, key=None):
             return None
 
 
-def company_db():
-    host = get_config("config.yml", "data-sources.company.host")
-    port = get_config("config.yml", "data-sources.company.port")
-    user = get_config("config.yml", "data-sources.company.username")
-    password = str(get_config("config.yml", "data-sources.company.password"))
-    db_name = get_config("config.yml", "data-sources.company.db-name")
-    charset = get_config("config.yml", "data-sources.company.charset")
-    db = MySQLdb.connect(host=host, port=port, user=user, passwd=password, db=db_name, charset=charset)
-    return db.cursor()
-
-
 def scf_db():
-    host = get_config("config.yml", "data-sources.scf.host")
-    port = get_config("config.yml", "data-sources.scf.port")
-    user = get_config("config.yml", "data-sources.scf.username")
-    password = str(get_config("config.yml", "data-sources.scf.password"))
-    db_name = get_config("config.yml", "data-sources.scf.db-name")
-    charset = get_config("config.yml", "data-sources.scf.charset")
-    db = MySQLdb.connect(host=host, port=port, user=user, passwd=password, db=db_name, charset=charset)
+    db = MySQLdb.connect(host="192.168.138.233", port=33306, user="root", passwd="123456", db="scf_w", charset="utf8")
     return db.cursor()

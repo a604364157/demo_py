@@ -12,7 +12,10 @@ def hello():
 
 @app.route("/run/ball", methods=["get"])
 def run_ball():
-    times = int(request.args.get("times"))
+    try:
+        times = int(request.args.get("times"))
+    except Exception:
+        times = 1
     if times is None:
         times = 1
     else:

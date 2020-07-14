@@ -158,6 +158,6 @@ def FaceRec(data):
 
 
 if __name__ == '__main__':
-    data = './face'
+    data = '.\\face'
     generator(data)
     # FaceRec(data)

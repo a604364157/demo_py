@@ -140,8 +140,9 @@ def main():
     for i in dirs:
         # if i.lower().endswith(".mp3"):
         if i.lower() == "芒种.mp3":
-            print("正在播放《" + i + "》")
-            play_music("mp3/" + i)
+            for j in range(10):
+                print("正在播放《" + i + "》")
+                play_music("mp3/" + i)
 
 
 if __name__ == '__main__':
